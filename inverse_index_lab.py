@@ -12,7 +12,7 @@ def movie_review(name):
     Output: a string (one of the review options), selected at random using randint
     """
     variants = ["See it!", "A gem!", "Ideological claptrap!"]
-    return variants[randint(0, len(variants))]
+    return variants[randint(0, len(variants)-1)]
 
 ## 2: (Task 2) Make Inverse Index
 
@@ -39,7 +39,7 @@ def makeInverseIndex(strlist):
             else:
                 result[word] = [ind]
 
-    r = {k: set(v) for k, v in result}
+    r = {k: set(v) for k, v in result.items()}
     return r
 
 
@@ -88,3 +88,6 @@ def andSearch(inverseIndex, query):
             pass
     return result
 
+
+if __name__ == '__main__':
+    print(makeInverseIndex(['hello world', 'hello', 'hi all', 'world', 'all']))
