@@ -194,6 +194,7 @@ def nextInts(L): return [i + 1 for i in L]
 def cubes(L): return [i ** 3 for i in L]
 
 
+
 ## 28: (Task 28) Procedure dict2list
 # Input: a dictionary dct and a list keylist consisting of the keys of dct
 # Output: the list L such that L[i] is the value associated in dct with keylist[i]
