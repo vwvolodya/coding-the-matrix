@@ -20,8 +20,14 @@ def tuple_sum(A, B):
     #>>> tuple_sum([(1,2), (10,20)],[(3,4), (30,40)])
     [(4, 6), (40, 60)]
     '''
-    pass
-
+    # [ zip()]
+    result = []
+    for i, v in enumerate(A):
+        tmp = []
+        for ind, val in enumerate(v):
+            tmp.append(A[i][ind] + B[i][ind])
+        result.append(tuple(tmp))
+    return result
 
 
 ## 2: (Problem 2) Inverse Dictionary
@@ -33,10 +39,10 @@ def inv_dict(d):
       -dictionary representing the inverse of f, the returned dictionary's
        keys are the values of d and its values are the keys of d
     Examples:
-    >>> inv_dict({'goodbye':  'au revoir', 'thank you': 'merci'})
+    #>>> inv_dict({'goodbye':  'au revoir', 'thank you': 'merci'})
     {'merci':'thank you', 'au revoir':'goodbye'}]
     '''
-    pass
+    return dict(zip(d.values(), d.keys()))
 
 
 
@@ -49,24 +55,27 @@ def row(p, n):
     Output:
       - n-element list such that element i is p+i
     Examples:
-    >>> row(10,4)
+    #>>> row(10,4)
     [10, 11, 12, 13]
     '''
-    pass
+    return [i for i in range(p, p + n)]
 
-comprehension_with_row = ...
+comprehension_with_row = row(15, 20)
 
-comprehension_without_row = ...
+comprehension_without_row = [i for i in range(15, 15 + 20)]
 
 
 
 ## 4: (Problem 4) Probability Exercise 1
-Pr_f_is_even = ...
-Pr_f_is_odd  = ...
+Pr_f_is_even = 5
+Pr_f_is_odd  = 5
 
 
 
 ## 5: (Problem 5) Probability Exercise 2
-Pr_g_is_1    = ...
-Pr_g_is_0or2 = ...
+Pr_g_is_1    = 5
+Pr_g_is_0or2 = 5
 
+if __name__ == '__main__':
+    print(tuple_sum([(1,2), (10,20)],[(3,4), (30,40)]))
+    print(row(10,4))
