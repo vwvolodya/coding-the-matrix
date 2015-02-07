@@ -80,7 +80,7 @@ def andSearch(inverseIndex, query):
     #>>> andSearch(idx, ['Johann', 'Bach'])
     {0, 4}
     """
-    result = set()
+    result = orSearch(inverseIndex, query)
     for word in query:
         try:
             result = result & inverseIndex[word]
@@ -90,4 +90,7 @@ def andSearch(inverseIndex, query):
 
 
 if __name__ == '__main__':
-    print(makeInverseIndex(['hello world', 'hello', 'hi all', 'world', 'all']))
+    dt = makeInverseIndex(['hello world', 'hello', 'hi all', 'world', 'all'])
+    print(dt)
+    s = andSearch(dt, ['hello'])
+    print(s)
