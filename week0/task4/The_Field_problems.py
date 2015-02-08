@@ -15,12 +15,12 @@ def myFilter(L, num):
     Output:
       -a list of numbers not containing a multiple of num
     Examples:
-      >>> myFilter([1,2,4,5,7],2)
+     # >>> myFilter([1,2,4,5,7],2)
       [1, 5, 7]
-      >>> myFilter([10,15,20,25],10)
+     # >>> myFilter([10,15,20,25],10)
       [15, 25]
     '''
-    pass
+    return [i for i in L if i % num != 0]
 
 
 
@@ -28,12 +28,12 @@ def myFilter(L, num):
 
 def my_lists(L):
     '''
-    >>> my_lists([1,2,4])
+    #>>> my_lists([1,2,4])
     [[1], [1, 2], [1, 2, 3, 4]]
-    >>> my_lists([0,3])
+    #>>> my_lists([0,3])
     [[], [1, 2, 3]]
     '''
-    pass
+    return [[i for i in range(1, j + 1)] for j in L]
 
 
 
@@ -46,17 +46,20 @@ def myFunctionComposition(f, g):
     Output:
       -a dictionary that represents a function g of f
     Examples:
-      >>> f = {0:'a',1:'b'}
-      >>> g = {'a':'apple','b':'banana'}
-      >>> myFunctionComposition(f,g) == {0:'apple',1:'banana'}
+    #  >>> f = {0:'a',1:'b'}
+    #  >>> g = {'a':'apple','b':'banana'}
+    #  >>> myFunctionComposition(f,g) == {0:'apple',1:'banana'}
       True
 
-      >>> a = {'x':24,'y':25}
-      >>> b = {24:'twentyfour',25:'twentyfive'}
-      >>> myFunctionComposition(a,b) == {'x':'twentyfour','y':'twentyfive'}
+    #  >>> a = {'x':24,'y':25}
+    #  >>> b = {24:'twentyfour',25:'twentyfive'}
+    #  >>> myFunctionComposition(a,b) == {'x':'twentyfour','y':'twentyfive'}
       True
     '''
-    pass
+    #res = {}
+    #for k, v in f.items():
+    #    res[k] = g[v]
+    return {k: g[v] for k, v in f.items()}
 
 
 
@@ -69,12 +72,15 @@ def mySum(L):
       sum of the numbers in L
 Be sure your procedure works for the empty list.
     Examples:
-      >>> mySum([1,2,3,4])
+    #  >>> mySum([1,2,3,4])
       10
-      >>> mySum([3,5,10])
+    #  >>> mySum([3,5,10])
       18
     '''
-    pass
+    current = 0
+    for el in L:
+        current += el
+    return current
 
 
 
@@ -87,12 +93,15 @@ def myProduct(L):
       -the product of the numbers in L
 Be sure your procedure works for the empty list.
     Examples:
-      >>> myProduct([1,3,5])
+    #  >>> myProduct([1,3,5])
       15
-      >>> myProduct([-3,2,4])
+    #  >>> myProduct([-3,2,4])
       -24
     '''
-    pass
+    current = 1
+    for el in L:
+        current *= el
+    return current
 
 
 
@@ -106,12 +115,16 @@ def myMin(L):
 Be sure your procedure works for the empty list.
 Hint: The value of the Python expression float('infinity') is infinity.
     Examples:
-    >>> myMin([1,-100,2,3])
+    #>>> myMin([1,-100,2,3])
     -100
-    >>> myMin([0,3,5,-2,-5])
+    #>>> myMin([0,3,5,-2,-5])
     -5
     '''
-    pass
+    current = L[0]
+    for el in L:
+        if el < current:
+            current = el
+    return current
 
 
 
@@ -124,12 +137,16 @@ def myConcat(L):
       -the concatenation of all the strings in L
 Be sure your procedure works for the empty list.
     Examples:
-    >>> myConcat(['hello','world'])
+    #>>> myConcat(['hello','world'])
     'helloworld'
-    >>> myConcat(['what','is','up'])
+    #>>> myConcat(['what','is','up'])
     'whatisup'
     '''
-    pass
+    #return ''.join(L)
+    current = ''
+    for el in L:
+        current += el
+    return current
 
 
 
@@ -142,22 +159,24 @@ def myUnion(L):
       -the union of all sets in L
 Be sure your procedure works for the empty list.
     Examples:
-    >>> myUnion([{1,2},{2,3}])
+    #>>> myUnion([{1,2},{2,3}])
     {1, 2, 3}
-    >>> myUnion([set(),{3,5},{3,5}])
+    #>>> myUnion([set(),{3,5},{3,5}])
     {3, 5}
     '''
-    pass
-
+    current = set()
+    for el in L:
+        current = current | el
+    return current
 
 
 ## 9: (Problem 9) Complex Addition Practice
 # Each answer should be a Python expression whose value is a complex number.
 
-complex_addition_a = ...
-complex_addition_b = ...
-complex_addition_c = ...
-complex_addition_d = ...
+complex_addition_a = 3 + 1j + 2 + 2j
+complex_addition_b = -1 + 2j + 1 - 1j
+complex_addition_c = 2 - 3 + 0.001j
+complex_addition_d = 4*(0 + 2j) + (0.001 + 1j)
 
 
 
@@ -173,15 +192,15 @@ def transform(a, b, L):
     Output:
       -a list of elements where each element is ax+b where x is an element in L
     Examples:
-    >>> transform(3,2,[1,2,3])
+    #>>> transform(3,2,[1,2,3])
     [5, 8, 11]
     '''
-    pass
+    return [a * i + b for i in L]
 
 
 
 ## 11: (Problem 11) GF(2) Arithmetic
-GF2_sum_1 = ... # answer with 0 or 1
-GF2_sum_2 = ...
-GF2_sum_3 = ...
+GF2_sum_1 = 1 # answer with 0 or 1
+GF2_sum_2 = 0
+GF2_sum_3 = 1
 
