@@ -202,5 +202,5 @@ def transform(a, b, L):
 ## 11: (Problem 11) GF(2) Arithmetic
 GF2_sum_1 = 1 # answer with 0 or 1
 GF2_sum_2 = 0
-GF2_sum_3 = 1
+GF2_sum_3 = 0
 
