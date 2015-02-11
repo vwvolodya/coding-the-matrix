@@ -9,13 +9,15 @@ def getitem(v,k):
     Return the value of entry d in v.
     Be sure getitem(v,d) returns 0 if d is not represented in v.f.
 
-    >>> v = Vec({'a','b','c', 'd'},{'a':2,'c':1,'d':3})
-    >>> v['d']
+    #>>> v = Vec({'a','b','c', 'd'},{'a':2,'c':1,'d':3})
+    #>>> v['d']
     3
-    >>> v['b']
+    #>>> v['b']
     0
     """
-    pass
+    if k not in v.f.keys():
+        return 0
+    return v.f[k]
 
 def setitem(v,k,val):
     """
@@ -23,45 +25,50 @@ def setitem(v,k,val):
     setitem(v,d,val) should set the value for key d even if d
     is not previously represented in v.f.
 
-    >>> v = Vec({'a', 'b', 'c'}, {'b':0})
-    >>> v['b'] = 5
-    >>> v['b']
+    #>>> v = Vec({'a', 'b', 'c'}, {'b':0})
+    #>>> v['b'] = 5
+    #>>> v['b']
     5
-    >>> v['a'] = 1
-    >>> v['a']
+    #>>> v['a'] = 1
+    #>>> v['a']
     1
     """
-    pass
+    v.f[k] = val
 
 def equal(u,v):
     """
     Return true iff u is equal to v.
     Because of sparse representation, it is not enough to compare dictionaries
 
-    >>> Vec({'a', 'b', 'c'}, {'a':0}) == Vec({'a', 'b', 'c'}, {'b':0})
+    #>>> Vec({'a', 'b', 'c'}, {'a':0}) == Vec({'a', 'b', 'c'}, {'b':0})
     True
 
     Be sure that equal(u, v) check equalities for all keys from u.f and v.f even if
     some keys in u.f do not exist in v.f (or vice versa)
 
-    >>> Vec({'x','y','z'},{'y':1,'x':2}) == Vec({'x','y','z'},{'y':1,'z':0})
+    #>>> Vec({'x','y','z'},{'y':1,'x':2}) == Vec({'x','y','z'},{'y':1,'z':0})
     False
-    >>> Vec({'a','b','c'}, {'a':0,'c':1}) == Vec({'a','b','c'}, {'a':0,'c':1,'b':4})
+    #>>> Vec({'a','b','c'}, {'a':0,'c':1}) == Vec({'a','b','c'}, {'a':0,'c':1,'b':4})
     False
-    >>> Vec({'a','b','c'}, {'a':0,'c':1,'b':4}) == Vec({'a','b','c'}, {'a':0,'c':1})
+    #>>> Vec({'a','b','c'}, {'a':0,'c':1,'b':4}) == Vec({'a','b','c'}, {'a':0,'c':1})
     False
 
     The keys matter:
-    >>> Vec({'a','b'},{'a':1}) == Vec({'a','b'},{'b':1})
+    #>>> Vec({'a','b'},{'a':1}) == Vec({'a','b'},{'b':1})
     False
 
     The values matter:
-    >>> Vec({'a','b'},{'a':1}) == Vec({'a','b'},{'a':2})
+    #>>> Vec({'a','b'},{'a':1}) == Vec({'a','b'},{'a':2})
     False
 
     """
     assert u.D == v.D
-    pass
+    tmp_u = {i: 0 for i in u.D}
+    tmp_v = {i: 0 for i in v.D}
+    tmp_u = {tmp_u[k]: v for k, v in u.f.items()}
+    tmp_v = {tmp_v[k]: v for k, v in v.f.items()}
+    return tmp_u == tmp_v
+
 
 def add(u,v):
     """
@@ -69,21 +76,21 @@ def add(u,v):
     Make sure to add together values for all keys from u.f and v.f even if some keys in u.f do not
     exist in v.f (or vice versa)
 
-    >>> a = Vec({'a','e','i','o','u'}, {'a':0,'e':1,'i':2})
-    >>> b = Vec({'a','e','i','o','u'}, {'o':4,'u':7})
-    >>> c = Vec({'a','e','i','o','u'}, {'a':0,'e':1,'i':2,'o':4,'u':7})
-    >>> a + b == c
+    #>>> a = Vec({'a','e','i','o','u'}, {'a':0,'e':1,'i':2})
+    #>>> b = Vec({'a','e','i','o','u'}, {'o':4,'u':7})
+    #>>> c = Vec({'a','e','i','o','u'}, {'a':0,'e':1,'i':2,'o':4,'u':7})
+    #>>> a + b == c
     True
-    >>> a == Vec({'a','e','i','o','u'}, {'a':0,'e':1,'i':2})
+    #>>> a == Vec({'a','e','i','o','u'}, {'a':0,'e':1,'i':2})
     True
-    >>> b == Vec({'a','e','i','o','u'}, {'o':4,'u':7})
+    #>>> b == Vec({'a','e','i','o','u'}, {'o':4,'u':7})
     True
-    >>> d = Vec({'x','y','z'}, {'x':2,'y':1})
-    >>> e = Vec({'x','y','z'}, {'z':4,'y':-1})
-    >>> f = Vec({'x','y','z'}, {'x':2,'y':0,'z':4})
-    >>> d + e == f
+    #>>> d = Vec({'x','y','z'}, {'x':2,'y':1})
+    #>>> e = Vec({'x','y','z'}, {'z':4,'y':-1})
+    #>>> f = Vec({'x','y','z'}, {'x':2,'y':0,'z':4})
+    #>>> d + e == f
     True
-    >>> b + Vec({'a','e','i','o','u'}, {}) == b
+    #>>> b + Vec({'a','e','i','o','u'}, {}) == b
     True
     """
     assert u.D == v.D
@@ -93,28 +100,28 @@ def dot(u,v):
     """
     Returns the dot product of the two vectors.
 
-    >>> u1 = Vec({'a','b'}, {'a':1, 'b':2})
-    >>> u2 = Vec({'a','b'}, {'b':2, 'a':1})
-    >>> u1*u2
+    #>>> u1 = Vec({'a','b'}, {'a':1, 'b':2})
+    #>>> u2 = Vec({'a','b'}, {'b':2, 'a':1})
+    #>>> u1*u2
     5
-    >>> u1 == Vec({'a','b'}, {'a':1, 'b':2})
+    #>>> u1 == Vec({'a','b'}, {'a':1, 'b':2})
     True
-    >>> u2 == Vec({'a','b'}, {'b':2, 'a':1})
+    #>>> u2 == Vec({'a','b'}, {'b':2, 'a':1})
     True
-    >>> v1 = Vec({'p','q','r','s'}, {'p':2,'s':3,'q':-1,'r':0})
-    >>> v2 = Vec({'p','q','r','s'}, {'p':-2,'r':5})
-    >>> v1*v2
+    #>>> v1 = Vec({'p','q','r','s'}, {'p':2,'s':3,'q':-1,'r':0})
+    #>>> v2 = Vec({'p','q','r','s'}, {'p':-2,'r':5})
+    #>>> v1*v2
     -4
-    >>> w1 = Vec({'a','b','c'}, {'a':2,'b':3,'c':4})
-    >>> w2 = Vec({'a','b','c'}, {'a':12,'b':8,'c':6})
-    >>> w1*w2
+    #>>> w1 = Vec({'a','b','c'}, {'a':2,'b':3,'c':4})
+    #>>> w2 = Vec({'a','b','c'}, {'a':12,'b':8,'c':6})
+    #>>> w1*w2
     72
 
     The pairwise products should not be collected in a set before summing
     because a set eliminates duplicates
-    >>> v1 = Vec({1, 2}, {1 : 3, 2 : 6})
-    >>> v2 = Vec({1, 2}, {1 : 2, 2 : 1})
-    >>> v1 * v2
+    #>>> v1 = Vec({1, 2}, {1 : 3, 2 : 6})
+    #>>> v2 = Vec({1, 2}, {1 : 2, 2 : 1})
+    #>>> v1 * v2
     12
     """
     assert u.D == v.D
@@ -124,15 +131,15 @@ def scalar_mul(v, alpha):
     """
     Returns the scalar-vector product alpha times v.
 
-    >>> zero = Vec({'x','y','z','w'}, {})
-    >>> u = Vec({'x','y','z','w'},{'x':1,'y':2,'z':3,'w':4})
-    >>> 0*u == zero
+    #>>> zero = Vec({'x','y','z','w'}, {})
+    #>>> u = Vec({'x','y','z','w'},{'x':1,'y':2,'z':3,'w':4})
+    #>>> 0*u == zero
     True
-    >>> 1*u == u
+    #>>> 1*u == u
     True
-    >>> 0.5*u == Vec({'x','y','z','w'},{'x':0.5,'y':1,'z':1.5,'w':2})
+    #>>> 0.5*u == Vec({'x','y','z','w'},{'x':0.5,'y':1,'z':1.5,'w':2})
     True
-    >>> u == Vec({'x','y','z','w'},{'x':1,'y':2,'z':3,'w':4})
+    #>>> u == Vec({'x','y','z','w'},{'x':1,'y':2,'z':3,'w':4})
     True
     """
     pass
@@ -141,13 +148,13 @@ def neg(v):
     """
     Returns the negation of a vector.
 
-    >>> u = Vec({2,4,6,8},{2:1,4:2,6:3,8:4})
-    >>> neg(u)
+    #>>> u = Vec({2,4,6,8},{2:1,4:2,6:3,8:4})
+    #>>> neg(u)
     Vec({8, 2, 4, 6},{8: -4, 2: -1, 4: -2, 6: -3})
-    >>> u == Vec({2,4,6,8},{2:1,4:2,6:3,8:4})
+    #>>> u == Vec({2,4,6,8},{2:1,4:2,6:3,8:4})
     True
     """
-    pass
+    return {k: -v for k, v in v.f.items()}
 
 ###############################################################################################################################
 
